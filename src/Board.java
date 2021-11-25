@@ -122,6 +122,18 @@ public class Board {
         return -1;
     }
 
+    /**
+     * accessor method
+     *
+     * @return number of columns
+     */
+    public int getCols() {
+        return board[0].length;
+    }
+
+    /**
+     * @return string representation of the board
+     */
     public String toString() {
         StringBuilder statement = new StringBuilder();
         for (int[] ints : board) {
@@ -137,26 +149,26 @@ public class Board {
         Board board1 = new Board();
         board1.insert(1, 1);
         board1.insert(1, 2);
-        System.out.println(board1);     // should have a 1 and a 2 in the second column
+        StdOut.println(board1);     // should have a 1 and a 2 in the second column
         board1.insert(1, 1);
         board1.insert(1, 1);
         board1.insert(1, 1);
         board1.insert(1, 1);
-        System.out.println(board1);     // should have four 1s stacked on top
+        StdOut.println(board1);     // should have four 1s stacked on top
         Board board2 = new Board();
         board2.insert(0, 1);
         board2.insert(1, 1);
         board2.insert(2, 1);
-        System.out.println("Winner is: " + board2.checkWinner());
-        System.out.println(board2);
+        StdOut.println("Winner is: " + board2.checkWinner());
+        StdOut.println(board2);
         board2.insert(3, 1);
-        System.out.println("Winner is: " + board2.checkWinner());
+        StdOut.println("Winner is: " + board2.checkWinner());
         Board board3 = new Board();
         board3.insert(0, 2);
         board3.insert(0, 2);
         board3.insert(0, 2);
         board3.insert(0, 2);
-        System.out.println("Winner is: " + board3.checkWinner());
+        StdOut.println("Winner is: " + board3.checkWinner());
         board1.insert(1, 1);            // illegal argument exception
     }
 }
