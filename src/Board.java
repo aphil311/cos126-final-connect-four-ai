@@ -52,7 +52,7 @@ public class Board {
     public int checkWinner() {
         if (checkRows() != -1)
             return checkRows();
-        else if (checkColumns() != 1)
+        else if (checkColumns() != -1)
             return checkColumns();
         else
             return checkDiags();
