@@ -11,7 +11,7 @@ public class Human extends Player {
     public void move() {
         int column;
         do {
-            StdOut.print("Column selection: ");
+            System.out.print("Column selection: ");
             column = StdIn.readInt();
         } while (isIllegalMove(column));
         board.insert(column, val);
@@ -34,7 +34,7 @@ public class Human extends Player {
         // lets me repeatedly test inputs
         for (int i = 0; i < 43; i++) {
             player1.move();
-            StdOut.println(board);
+            System.out.println(board);
         }
     }
 }

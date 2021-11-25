@@ -18,7 +18,7 @@ public class ConnectFour {
 
         // main game loop
         while (!board.isFull() && board.checkWinner() == -1) {
-            StdOut.println(board);
+            System.out.println(board);
             players[i].move();
             // not the prettiest but it works
             if (i == 1)
@@ -29,10 +29,10 @@ public class ConnectFour {
 
         // print the winner
         if (board.checkWinner() == player1.getVal())
-            StdOut.println("Player 1 wins!");
+            System.out.println("Player 1 wins!");
         else if (board.checkWinner() == player2.getVal())
-            StdOut.println("Player 2 wins!");
+            System.out.println("Player 2 wins!");
         else
-            StdOut.println("There was a draw!");
+            System.out.println("There was a draw!");
     }
 }

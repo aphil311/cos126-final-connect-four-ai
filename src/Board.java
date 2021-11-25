@@ -134,7 +134,7 @@ public class Board {
         for (int k = 3; k < board.length; k++) {
             int j = 0;
             for (int i = k; i >= 0; i--) {
-                // StdOut.println("[" + i + "][" + j + "]");
+                // System.out.println("[" + i + "][" + j + "]");
                 int num = board[i][j];
                 if (num == check) {
                     count++;
@@ -154,7 +154,7 @@ public class Board {
         for (int k = 1; k < 4; k++) {
             int i = 5;
             for (int j = k; j < board[0].length; j++) {
-                //StdOut.println("[" + i + "][" + j + "]");
+                //System.out.println("[" + i + "][" + j + "]");
                 if (board[i][j] == check) {
                     count++;
                     if (count == 4) return check;
@@ -173,7 +173,7 @@ public class Board {
         for (int k = 3; k < board.length; k++) {
             int j = 6;
             for (int i = k; i >= 0; i--) {
-                // StdOut.println("[" + i + "][" + j + "]");
+                // System.out.println("[" + i + "][" + j + "]");
                 int num = board[i][j];
                 if (num == check) {
                     count++;
@@ -193,7 +193,7 @@ public class Board {
         for (int k = 5; k >= 3; k--) {
             int i = 5;
             for (int j = k; j >= 0; j--) {
-                //StdOut.println("[" + i + "][" + j + "]");
+                //System.out.println("[" + i + "][" + j + "]");
                 if (board[i][j] == check) {
                     count++;
                     if (count == 4) return check;
@@ -237,26 +237,26 @@ public class Board {
         Board board1 = new Board();
         board1.insert(1, 1);
         board1.insert(1, 2);
-        StdOut.println(board1);     // should have a 1 and a 2 in the second column
+        System.out.println(board1);     // should have a 1 and a 2 in the second column
         board1.insert(1, 1);
         board1.insert(1, 1);
         board1.insert(1, 1);
         board1.insert(1, 1);
-        StdOut.println(board1);     // should have four 1s stacked on top
+        System.out.println(board1);     // should have four 1s stacked on top
         Board board2 = new Board();
         board2.insert(0, 1);
         board2.insert(1, 1);
         board2.insert(2, 1);
-        StdOut.println("Winner is: " + board2.checkWinner());
-        StdOut.println(board2);
+        System.out.println("Winner is: " + board2.checkWinner());
+        System.out.println(board2);
         board2.insert(3, 1);
-        StdOut.println("Winner is: " + board2.checkWinner());
+        System.out.println("Winner is: " + board2.checkWinner());
         Board board3 = new Board();
         board3.insert(0, 2);
         board3.insert(0, 2);
         board3.insert(0, 2);
         board3.insert(0, 2);
-        StdOut.println("Winner is: " + board3.checkWinner());
+        System.out.println("Winner is: " + board3.checkWinner());
         board1.insert(1, 1);            // illegal argument exception
     }
 }

@@ -12,6 +12,7 @@ public class Random extends Player {
         int column;
         do {
             column = StdRandom.uniform(board.getCols());
+            // column = (int) (Math.random() * board.getCols());
         } while (board.isFull(column));
         board.insert(column, val);
     }
@@ -23,7 +24,7 @@ public class Random extends Player {
         // a few moves to make sure everything works fine
         for (int i = 0; i < 7; i++) {
             random.move();
-            StdOut.println(board);
+            System.out.println(board);
             human.move();
         }
     }
