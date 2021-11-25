@@ -26,4 +26,4 @@ hs_err_pid*
 # IntelliJ files
 /.idea
 /out
-/META-INF
+/src/META-INF
