@@ -1,10 +1,15 @@
+import java.util.Arrays;
+
 public class Board {
     // two dimensional array representation of the connect four board
-    private int[][] board = new int[6][7];
+    private int[][] board;
     // array containing height of the stacks of each column is also index of next placement
-    private int[] height = {5, 5, 5, 5, 5, 5, 5};
+    private int[] height;
 
     public Board() {
+        board = new int[6][7];
+        height = new int[7];
+        Arrays.fill(height, 5);
     }
 
     /**
@@ -56,6 +61,7 @@ public class Board {
             return checkColumns();
         else
             return checkDiags();
+        //return -1;
     }
 
     /**
@@ -104,6 +110,8 @@ public class Board {
                     if (ints[j] != 0) check = ints[j];
                 }
             }
+            count = 0;
+            check = -1;
         }
         return -1;
     }
@@ -115,9 +123,89 @@ public class Board {
      * @return integer representation of the winning player otherwise return -1
      */
     private int checkDiags() {
+        /*
+        NOTE: this one was pretty brutal to write, also though it is not explicit in test method each possibility
+        has been tested
+        */
+        // TODO: refactor if i have time
         int check = -1;
         int count = 0;
-        // TODO: write this entire method ... oof
+        // bottom left to top right bounded by left side
+        for (int k = 3; k < board.length; k++) {
+            int j = 0;
+            for (int i = k; i >= 0; i--) {
+                // StdOut.println("[" + i + "][" + j + "]");
+                int num = board[i][j];
+                if (num == check) {
+                    count++;
+                    if (count == 4) return check;
+                } else {
+                    count = 1;
+                    if (num != 0) check = num;
+                }
+                j++;
+            }
+            count = 0;
+            check = -1;
+        }
+        check = -1;
+        count = 0;
+        // bottom left to top right bounded by bottom
+        for (int k = 1; k < 4; k++) {
+            int i = 5;
+            for (int j = k; j < board[0].length; j++) {
+                //StdOut.println("[" + i + "][" + j + "]");
+                if (board[i][j] == check) {
+                    count++;
+                    if (count == 4) return check;
+                } else {
+                    count = 1;
+                    if (board[i][j] != 0) check = board[i][j];
+                }
+                i--;
+            }
+            count = 0;
+            check = -1;
+        }
+        check = -1;
+        count = 0;
+        // bottom right to top left bounded by right side
+        for (int k = 3; k < board.length; k++) {
+            int j = 6;
+            for (int i = k; i >= 0; i--) {
+                // StdOut.println("[" + i + "][" + j + "]");
+                int num = board[i][j];
+                if (num == check) {
+                    count++;
+                    if (count == 4) return check;
+                } else {
+                    count = 1;
+                    if (num != 0) check = num;
+                }
+                j--;
+            }
+            count = 0;
+            check = -1;
+        }
+        check = -1;
+        count = 0;
+        // bottom right to top left bounded by bottom
+        for (int k = 5; k >= 3; k--) {
+            int i = 5;
+            for (int j = k; j >= 0; j--) {
+                //StdOut.println("[" + i + "][" + j + "]");
+                if (board[i][j] == check) {
+                    count++;
+                    if (count == 4) return check;
+                } else {
+                    count = 1;
+                    if (board[i][j] != 0) check = board[i][j];
+                }
+                i--;
+            }
+            count = 0;
+            check = -1;
+        }
 
         return -1;
     }
