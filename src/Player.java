@@ -2,14 +2,12 @@ import java.awt.*;
 
 abstract class Player {
     protected final int val;        // integer representation of this player
-    private final int opp;        // integer representation of ths opponent
     private final Color color;    // color assigned to this player
     Board board;            // board to modify
 
-    public Player(int val, Board b, int opp, Color color) {
+    public Player(int val, Board b, Color color) {
         this.val = val;
         board = b;
-        this.opp = opp;
         this.color = color;
     }
 

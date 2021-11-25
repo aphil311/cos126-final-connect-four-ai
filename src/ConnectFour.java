@@ -4,8 +4,8 @@ public class ConnectFour {
     public static void main(String[] args) {
         // initialize board and players
         Board board = new Board();
-        Player player1 = new Human(1, board, 2, Color.RED);
-        Player player2 = new Human(2, board, 1, Color.YELLOW);
+        Player player1 = new Human(1, board, Color.RED);
+        Player player2 = new Human(2, board, Color.YELLOW);
         Player[] players = {player1, player2};
         int i = 0;
 
