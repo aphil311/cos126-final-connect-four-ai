@@ -5,7 +5,14 @@ public class ConnectFour {
         // initialize board and players
         Board board = new Board();
         Player player1 = new Human(1, board, Color.RED);
-        Player player2 = new Human(2, board, Color.YELLOW);
+        Player player2;
+
+        // takes command line argument to determine opponent
+        if (args[0].equals("easy"))
+            player2 = new Random(1, board, Color.RED);
+        else
+            player2 = new Human(1, board, Color.RED);
+
         Player[] players = {player1, player2};
         int i = 0;
 
@@ -13,6 +20,7 @@ public class ConnectFour {
         while (!board.isFull() && board.checkWinner() == -1) {
             StdOut.println(board);
             players[i].move();
+            // not the prettiest but it works
             if (i == 1)
                 i = 0;
             else
@@ -26,6 +34,5 @@ public class ConnectFour {
             StdOut.println("Player 2 wins!");
         else
             StdOut.println("There was a draw!");
-
     }
 }
