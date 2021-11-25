@@ -9,9 +9,9 @@ public class ConnectFour {
 
         // takes command line argument to determine opponent
         if (args[0].equals("easy"))
-            player2 = new Random(1, board, Color.RED);
+            player2 = new Random(2, board, Color.RED);
         else
-            player2 = new Human(1, board, Color.RED);
+            player2 = new Human(2, board, Color.RED);
 
         Player[] players = {player1, player2};
         int i = 0;
