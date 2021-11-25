@@ -5,13 +5,26 @@ public class Human extends Player {
         super(val, b, opp, color);
     }
 
+    /**
+     * asks the player to choose a column and attempts to play there
+     */
     public void move() {
         int column;
         do {
             StdOut.print("Column selection: ");
             column = StdIn.readInt();
-        } while (column < 0 || column >= board.getCols() || board.isFull(column));
+        } while (isIllegalMove(column));
         board.insert(column, val);
+    }
+
+    /**
+     * checks whether it is possible to play a given column
+     *
+     * @param c column in question
+     * @return true if move is illegal, false otherwise
+     */
+    private boolean isIllegalMove(int c) {
+        return (c < 0 || c >= board.getCols() || board.isFull(c));
     }
 
     public static void main(String[] args) {
