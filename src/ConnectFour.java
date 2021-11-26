@@ -8,7 +8,7 @@ public class ConnectFour {
         Player player2;
 
         // takes command line argument to determine opponent
-        if (args[0].equals("easy"))
+        if (args.length > 0 && args[0].equals("easy"))
             player2 = new Random(2, board, Color.RED);
         else
             player2 = new Human(2, board, Color.RED);
