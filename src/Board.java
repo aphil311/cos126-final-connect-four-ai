@@ -12,6 +12,21 @@ public class Board {
         Arrays.fill(height, 5);
     }
 
+    public Board(int[][] board, int[] height) {
+        if (board.length != 6 && board[0].length != 7)
+            throw new IllegalArgumentException("board is the incorrect size");
+        this.board = new int[6][7];
+        for (int i = 0; i < board.length; i++) {
+            System.arraycopy(board[i], 0, this.board[i], 0, board[0].length);
+        }
+        if (height.length != board[0].length)
+            throw new IllegalArgumentException("height length does not match board size");
+        this.height = new int[board[0].length];
+        for (int k = 0; k < height.length; k++) {
+            this.height[k] = height[0];
+        }
+    }
+
     /**
      * checks whether or not a certain column is full
      *
