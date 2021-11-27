@@ -1,5 +1,5 @@
 # About the Project
-This is a playable game of connect four. The final version will include a GUI and one or more opponents. Inspiration is taken from the AlphaGo project wich utilized a Monte Carlo Tree Search (MCTS) algorithm to play Go.
+This is a playable game of connect four. The final version will include a GUI and one or more opponents. Inspiration is taken from the AlphaGo project which utilized a Monte Carlo Tree Search (MCTS) algorithm to play Go.
 
 # Usage
 **v0.1.0-alpha**  
