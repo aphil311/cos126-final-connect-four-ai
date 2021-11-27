@@ -16,4 +16,7 @@ where `<mode>` is either "easy" or "ai". Any other arguement will default to a h
 *demo video will be embedded here*
 ### Resources looked at:
 - https://www.youtube.com/watch?v=UXW2yZndl7U&ab_channel=JohnLevine
-- https://www.baeldung.com/java-monte-carlo-tree-search
+- https://www.baeldung.com/java-monte-carlo-tree-search\
+
+# Analysis
+*Methods will be analyzed for complexity here*
