@@ -234,6 +234,14 @@ public class Board {
         return board[0].length;
     }
 
+    public int[] getHeights() {
+        return height;
+    }
+
+    public int[][] getBoard() {
+        return board;
+    }
+
     /**
      * @return string representation of the board
      */
