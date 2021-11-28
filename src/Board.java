@@ -12,6 +12,21 @@ public class Board {
         Arrays.fill(height, 5);
     }
 
+    public Board(int[][] board, int[] height) {
+        if (board.length != 6 && board[0].length != 7)
+            throw new IllegalArgumentException("board is the incorrect size");
+        this.board = new int[6][7];
+        for (int i = 0; i < board.length; i++) {
+            System.arraycopy(board[i], 0, this.board[i], 0, board[0].length);
+        }
+        if (height.length != board[0].length)
+            throw new IllegalArgumentException("height length does not match board size");
+        this.height = new int[board[0].length];
+        for (int k = 0; k < height.length; k++) {
+            this.height[k] = height[k];
+        }
+    }
+
     /**
      * checks whether or not a certain column is full
      *
@@ -219,6 +234,18 @@ public class Board {
         return board[0].length;
     }
 
+    public int[] getHeights() {
+        return Arrays.copyOf(height, height.length);
+    }
+
+    public int[][] getBoard() {
+        int[][] newBoard = new int[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            System.arraycopy(board[i], 0, newBoard[i], 0, board[0].length);
+        }
+        return newBoard;
+    }
+
     /**
      * @return string representation of the board
      */
@@ -257,6 +284,10 @@ public class Board {
         board3.insert(0, 2);
         board3.insert(0, 2);
         System.out.println("Winner is: " + board3.checkWinner());
+        Board board4 = new Board(board3.getBoard(), board3.getHeights());
+        System.out.println("Board 4\n" + board4);
+        board4.insert(1, 6);
+        System.out.println("Board 3\n" + board4);
         board1.insert(1, 1);            // illegal argument exception
     }
 }

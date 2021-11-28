@@ -8,10 +8,12 @@ public class ConnectFour {
         Player player2;
 
         // takes command line argument to determine opponent
-        if (args.length > 0 && args[0].equals("easy"))
-            player2 = new Random(2, board, Color.RED);
+        if (args[0] > 0 && args[0].equals("easy"))
+            player2 = new Random(2, board, Color.YELLOW);
+        else if (args[0].equals("ai"))
+            player2 = new MonteCarlo(2, board, Color.YELLOW, 1, 10000);
         else
-            player2 = new Human(2, board, Color.RED);
+            player2 = new Human(2, board, Color.YELLOW);
 
         Player[] players = {player1, player2};
         int i = 0;
@@ -19,6 +21,7 @@ public class ConnectFour {
         // main game loop
         while (!board.isFull() && board.checkWinner() == -1) {
             System.out.println(board);
+            // debugging
             players[i].move();
             // not the prettiest but it works
             if (i == 1)
