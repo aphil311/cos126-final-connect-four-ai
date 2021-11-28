@@ -23,7 +23,7 @@ public class Board {
             throw new IllegalArgumentException("height length does not match board size");
         this.height = new int[board[0].length];
         for (int k = 0; k < height.length; k++) {
-            this.height[k] = height[0];
+            this.height[k] = height[k];
         }
     }
 
@@ -235,11 +235,15 @@ public class Board {
     }
 
     public int[] getHeights() {
-        return height;
+        return Arrays.copyOf(height, height.length);
     }
 
     public int[][] getBoard() {
-        return board;
+        int[][] newBoard = new int[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            System.arraycopy(board[i], 0, newBoard[i], 0, board[0].length);
+        }
+        return newBoard;
     }
 
     /**
@@ -280,6 +284,10 @@ public class Board {
         board3.insert(0, 2);
         board3.insert(0, 2);
         System.out.println("Winner is: " + board3.checkWinner());
+        Board board4 = new Board(board3.getBoard(), board3.getHeights());
+        System.out.println("Board 4\n" + board4);
+        board4.insert(1, 6);
+        System.out.println("Board 3\n" + board4);
         board1.insert(1, 1);            // illegal argument exception
     }
 }

@@ -11,7 +11,7 @@ public class ConnectFour {
         if (args[0].equals("easy"))
             player2 = new Random(2, board, Color.YELLOW);
         else if (args[0].equals("ai"))
-            player2 = new MonteCarlo(2, board, Color.YELLOW, 1);
+            player2 = new MonteCarlo(2, board, Color.YELLOW, 1, 10000);
         else
             player2 = new Human(2, board, Color.YELLOW);
 
@@ -21,6 +21,7 @@ public class ConnectFour {
         // main game loop
         while (!board.isFull() && board.checkWinner() == -1) {
             System.out.println(board);
+            // debugging
             players[i].move();
             // not the prettiest but it works
             if (i == 1)
