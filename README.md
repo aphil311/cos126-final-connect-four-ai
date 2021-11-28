@@ -2,7 +2,7 @@
 This is a playable game of connect four. The final version will include a GUI and one or more opponents. Inspiration is taken from the AlphaGo project which utilized a Monte Carlo Tree Search (MCTS) algorithm to play Go. The AI is being developed seperately in the "MCTS" branch as it requires moderate redesign of the "Board.java" class.
 
 # Usage
-**v0.1.0-alpha**  
+**v0.1.0**  
 A compiled .jar file can be found on the releases page along with zipped source code.
 In the terminal type  
 ```
