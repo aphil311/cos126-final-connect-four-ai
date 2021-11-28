@@ -29,7 +29,7 @@ The board is seven units wide and six units tall. When prompted `Column selectio
 - [John Levine - Monte Carlo Tree Search](https://www.youtube.com/watch?v=UXW2yZndl7U&ab_channel=JohnLevine)
 - [Educative - Java Tree Data Structure](https://www.educative.io/blog/data-structures-trees-java)
 - [Java Docs - Arrays Class](https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html)
-- [JavafX Community Docs](https://fxdocs.github.io/docs/html5/)
+- [JavaFX Community Docs](https://fxdocs.github.io/docs/html5/)
 
 # Analysis
 *Methods will be analyzed for complexity here*
