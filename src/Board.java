@@ -251,20 +251,19 @@ public class Board {
      */
     public String toString() {
         StringBuilder statement = new StringBuilder();
-        statement.append("________________\n");
         for (int[] ints : board) {
             statement.append("|");
             for (int anInt : ints) {
                 if (anInt == 1)
-                    statement.append("X ");
+                    statement.append("X|");
                 else if (anInt == 2)
-                    statement.append("O ");
+                    statement.append("O|");
                 else
-                    statement.append("  ");
+                    statement.append(" |");
             }
-            statement.append("|\n");
+            statement.append("\n");
         }
-        return statement.toString();
+        return statement.toString() + " 0 1 2 3 4 5 6";
     }
 
     public static void main(String[] args) {
