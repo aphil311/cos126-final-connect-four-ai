@@ -8,10 +8,10 @@ public class ConnectFour {
         Player player2;
 
         // takes command line argument to determine opponent
-        if (args[0] > 0 && args[0].equals("easy"))
-            player2 = new Random(2, board, Color.YELLOW);
+        if (args.length > 0 && args[0].equals("easy"))
+            player2 = new Random(2, board, Color.YELLOW, 1);
         else if (args[0].equals("ai"))
-            player2 = new MonteCarlo(2, board, Color.YELLOW, 1, 10000);
+            player2 = new MonteCarlo(2, board, Color.YELLOW, 1, 13000);
         else
             player2 = new Human(2, board, Color.YELLOW);
 
@@ -37,5 +37,6 @@ public class ConnectFour {
             System.out.println("Player 2 wins!");
         else
             System.out.println("There was a draw!");
+        System.out.println(board);
     }
 }

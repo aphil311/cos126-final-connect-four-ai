@@ -20,7 +20,7 @@ public class MonteCarlo extends Player {
         // create root of tree
         Node root = new Node(board, val, opp);
         // create nodes
-        root.getAllStates();
+        root.getAllStatesFromRoot();
         int win;
 
         // for certain number of iterations
@@ -30,6 +30,7 @@ public class MonteCarlo extends Player {
             Node node = root.returnBestUCT();
 
             // choose node
+            System.out.println("selection");
             while (!node.isLeaf()) {
                 node = node.returnBestUCT();
             }
@@ -37,10 +38,10 @@ public class MonteCarlo extends Player {
 
             // if unexplored, roll out ... if explored, expand nodes
             if (node.getTotalVisits() == 0) {
-                //StdOut.println("Rollout");
+                StdOut.println("rollout");
                 win = node.rollout(node.getBoard(), node.getHeights());
             } else {
-                //StdOut.println("Expand");
+                StdOut.println("expand");
                 node.getAllStates();
                 Node child = node.returnBestUCT();
                 win = child.rollout(child.getBoard(), child.getHeights());
@@ -49,6 +50,7 @@ public class MonteCarlo extends Player {
             }
 
             // backpropagation
+            System.out.println("backpropagation");
             node.incrementTotalVisits();
             while (node.getParent() != root) {
                 node = node.getParent();
@@ -91,12 +93,38 @@ public class MonteCarlo extends Player {
             children = new ArrayList<>();
             totalVisits = 0;
             winValue = 0;
+            if (board.checkWinner() == val) {
+                winValue = 9999;
+                //System.out.println("found win next move: " + col);
+                totalVisits = 1;
+            } else if (board.checkWinner() == opp) {
+                winValue = -9999;
+                //System.out.println("opponent wins next move");
+            }
             this.column = col;
         }
 
         /**
          * Links all possible plays to this node
          */
+        private void getAllStatesFromRoot() {
+            for (int i = 0; i < state.getCols(); i++) {
+                if (!state.isFull(i)) {
+                    Board newBoard = new Board(state.getBoard(), state.getHeights());
+                    newBoard.insert(i, val);
+                    // TODO: Once this class stops being a pain and giving me errors replace with another MCTS
+                    // this algorithm requires the assumption of optimal play from its opponent
+                    newBoard.insert(educatedRandom(newBoard.getBoard(), newBoard.getHeights()), opp);
+
+
+                    //System.out.println("State:\n" + newBoard);
+                    Node node = new Node(newBoard, val, opp, i);
+                    node.setParent(this);
+                    children.add(node);
+                }
+            }
+        }
+
         private void getAllStates() {
             for (int i = 0; i < state.getCols(); i++) {
                 if (!state.isFull(i)) {
@@ -104,17 +132,11 @@ public class MonteCarlo extends Player {
                     newBoard.insert(i, val);
                     // TODO: Once this class stops being a pain and giving me errors replace with another MCTS
                     // this algorithm requires the assumption of optimal play from its opponent
-                    int attempt1 = StdRandom.uniform(7);
-                    while (newBoard.isFull(attempt1)) {
-                        attempt1 = StdRandom.uniform(7);
-                    }
-//                    Player player2 = new MonteCarlo(opp, newBoard, Color.BLACK, val, 500);
-//                    player2.move();
-                    newBoard.insert(attempt1, opp);
+                    newBoard.insert(educatedRandom(newBoard.getBoard(), newBoard.getHeights()), opp);
 
 
                     //System.out.println("State:\n" + newBoard);
-                    Node node = new Node(newBoard, val, opp, i);
+                    Node node = new Node(newBoard, val, opp);
                     node.setParent(this);
                     children.add(node);
                 }
@@ -129,7 +151,7 @@ public class MonteCarlo extends Player {
         private double calculateUCT() {
             if (totalVisits == 0) return Double.POSITIVE_INFINITY;
             //System.out.println("Win Value : " + winValue + "; Total Visits: " + totalVisits + "; Parent Total Visits: " + parent.getTotalVisits());
-            return (double) winValue / (double) totalVisits + 2.0 * (Math.sqrt(Math.log((double) parent.getTotalVisits()) / totalVisits));
+            return (double) winValue / (double) totalVisits + 1.44 * (Math.sqrt(Math.log((double) parent.getTotalVisits()) / totalVisits));
         }
 
         /**
@@ -162,8 +184,8 @@ public class MonteCarlo extends Player {
          */
         private int rollout(int[][] board, int[] height) {
             Board randomGame = new Board(board, height);
-            Player us = new Random(val, randomGame, Color.BLACK);
-            Player opponent = new Random(opp, randomGame, Color.BLACK);
+            Player us = new Random(val, randomGame, Color.BLACK, opp);
+            Player opponent = new Random(opp, randomGame, Color.BLACK, val);
             Player[] players = {us, opponent};
             int i = 0;
             while (!randomGame.isFull() && randomGame.checkWinner() == -1) {
@@ -198,6 +220,33 @@ public class MonteCarlo extends Player {
 
         private Node getParent() {
             return parent;
+        }
+
+        private int educatedRandom(int[][] board, int[] height) {
+            for (int i = 0; i < height.length; i++) {
+                Board boardCopy = new Board(board, height);
+                if (!boardCopy.isFull(i)) {
+                    boardCopy.insert(i, opp);
+                    if (boardCopy.checkWinner() != -1)
+                        return i;
+                }
+            }
+            for (int i = 0; i < height.length; i++) {
+                Board boardCopy = new Board(board, height);
+                if (!boardCopy.isFull(i)) {
+                    boardCopy.insert(i, val);
+                    if (boardCopy.checkWinner() != -1)
+                        return i;
+                }
+            }
+
+            Board boardCopy = new Board(board, height);
+            int attempt;
+            do {
+                attempt = StdRandom.uniform(7);
+            } while (boardCopy.isFull(attempt));
+
+            return attempt;
         }
 
         /**
