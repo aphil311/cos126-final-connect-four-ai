@@ -30,7 +30,7 @@ public class MonteCarlo extends Player {
             Node node = root.returnBestUCT();
 
             // choose node
-            System.out.println("selection");
+            //System.out.println("selection");
             while (!node.isLeaf()) {
                 node = node.returnBestUCT();
             }
@@ -38,10 +38,9 @@ public class MonteCarlo extends Player {
 
             // if unexplored, roll out ... if explored, expand nodes
             if (node.getTotalVisits() == 0) {
-                StdOut.println("rollout");
+                //StdOut.println("rollout");
                 win = node.rollout(node.getBoard(), node.getHeights());
             } else {
-                StdOut.println("expand");
                 node.getAllStates();
                 Node child = node.returnBestUCT();
                 win = child.rollout(child.getBoard(), child.getHeights());
@@ -50,7 +49,6 @@ public class MonteCarlo extends Player {
             }
 
             // backpropagation
-            System.out.println("backpropagation");
             node.incrementTotalVisits();
             while (node.getParent() != root) {
                 node = node.getParent();
@@ -132,8 +130,9 @@ public class MonteCarlo extends Player {
                     newBoard.insert(i, val);
                     // TODO: Once this class stops being a pain and giving me errors replace with another MCTS
                     // this algorithm requires the assumption of optimal play from its opponent
-                    newBoard.insert(educatedRandom(newBoard.getBoard(), newBoard.getHeights()), opp);
 
+                    if (!newBoard.isFull())
+                        newBoard.insert(educatedRandom(newBoard.getBoard(), newBoard.getHeights()), opp);
 
                     //System.out.println("State:\n" + newBoard);
                     Node node = new Node(newBoard, val, opp);

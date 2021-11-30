@@ -157,6 +157,7 @@ public class Board {
                 } else {
                     count = 1;
                     if (num != 0) check = num;
+                    else count = 0;
                 }
                 j++;
             }
@@ -176,6 +177,7 @@ public class Board {
                 } else {
                     count = 1;
                     if (board[i][j] != 0) check = board[i][j];
+                    else count = 0;
                 }
                 i--;
             }
@@ -196,6 +198,7 @@ public class Board {
                 } else {
                     count = 1;
                     if (num != 0) check = num;
+                    else count = 0;
                 }
                 j--;
             }
@@ -215,6 +218,7 @@ public class Board {
                 } else {
                     count = 1;
                     if (board[i][j] != 0) check = board[i][j];
+                    else count = 0;
                 }
                 i--;
             }
