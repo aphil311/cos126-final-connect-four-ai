@@ -10,8 +10,8 @@ public class ConnectFour {
         // takes command line argument to determine opponent
         if (args.length > 0 && args[0].equals("easy"))
             player2 = new Random(2, board, Color.YELLOW, 1);
-        else if (args[0].equals("ai"))
-            player2 = new MonteCarlo(2, board, Color.YELLOW, 1, 13000);
+        else if (args.length > 0 && args[0].equals("ai"))
+            player2 = new MonteCarlo(2, board, Color.YELLOW, 1, 20000);
         else
             player2 = new Human(2, board, Color.YELLOW);
 

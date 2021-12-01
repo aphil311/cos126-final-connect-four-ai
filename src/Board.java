@@ -97,6 +97,7 @@ public class Board {
                 } else {
                     count = 1;
                     if (anInt != 0) check = anInt;
+                    else count = 0;
                 }
             }
             count = 0;
@@ -123,6 +124,7 @@ public class Board {
                 } else {
                     count = 1;
                     if (ints[j] != 0) check = ints[j];
+                    else count = 0;
                 }
             }
             count = 0;

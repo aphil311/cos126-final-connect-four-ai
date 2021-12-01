@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 public class MonteCarlo extends Player {
     // integer representation of the opponent
@@ -21,7 +20,7 @@ public class MonteCarlo extends Player {
         Node root = new Node(board, val, opp);
         // create nodes
         root.getAllStatesFromRoot();
-        int win;
+        int win = 0;
 
         // for certain number of iterations
 
@@ -32,7 +31,8 @@ public class MonteCarlo extends Player {
             // choose node
             //System.out.println("selection");
             while (!node.isLeaf()) {
-                node = node.returnBestUCT();
+                if (!node.state.isFull())
+                    node = node.returnBestUCT();
             }
             //System.out.println(node.getColumn());
 
@@ -41,11 +41,13 @@ public class MonteCarlo extends Player {
                 //StdOut.println("rollout");
                 win = node.rollout(node.getBoard(), node.getHeights());
             } else {
-                node.getAllStates();
-                Node child = node.returnBestUCT();
-                win = child.rollout(child.getBoard(), child.getHeights());
-                child.incrementTotalVisits();
-                node.setWinValue(win);
+                if (!node.state.isFull()) {
+                    node.getAllStates();
+                    Node child = node.returnBestUCT();
+                    win = child.rollout(child.getBoard(), child.getHeights());
+                    child.incrementTotalVisits();
+                    node.setWinValue(win);
+                }
             }
 
             // backpropagation
@@ -69,7 +71,7 @@ public class MonteCarlo extends Player {
     private class Node {
         private final Board state;
         private int totalVisits;
-        private int winValue;
+        private double winValue;
         private Node parent;
         private ArrayList<Node> children;
         private final int val, opp;
@@ -92,11 +94,11 @@ public class MonteCarlo extends Player {
             totalVisits = 0;
             winValue = 0;
             if (board.checkWinner() == val) {
-                winValue = 9999;
+                winValue = Double.POSITIVE_INFINITY;
                 //System.out.println("found win next move: " + col);
                 totalVisits = 1;
             } else if (board.checkWinner() == opp) {
-                winValue = -9999;
+                winValue = Double.NEGATIVE_INFINITY;
                 //System.out.println("opponent wins next move");
             }
             this.column = col;
@@ -150,7 +152,7 @@ public class MonteCarlo extends Player {
         private double calculateUCT() {
             if (totalVisits == 0) return Double.POSITIVE_INFINITY;
             //System.out.println("Win Value : " + winValue + "; Total Visits: " + totalVisits + "; Parent Total Visits: " + parent.getTotalVisits());
-            return (double) winValue / (double) totalVisits + 1.44 * (Math.sqrt(Math.log((double) parent.getTotalVisits()) / totalVisits));
+            return winValue / (double) totalVisits + 1.44 * (Math.sqrt(Math.log((double) parent.getTotalVisits()) / totalVisits));
         }
 
         /**
@@ -159,7 +161,7 @@ public class MonteCarlo extends Player {
          * @return the child node with the highest UCT value
          */
         private Node returnBestUCT() {
-            if (children.size() == 0) throw new NoSuchElementException("no children");
+            if (children.size() == 0) System.out.println(this.state);
             Node best = children.get(0);
             double bestUCT = best.calculateUCT();
             for (int i = 1; i < children.size(); i++) {
