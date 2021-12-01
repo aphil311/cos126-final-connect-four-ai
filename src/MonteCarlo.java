@@ -152,7 +152,7 @@ public class MonteCarlo extends Player {
         private double calculateUCT() {
             if (totalVisits == 0) return Double.POSITIVE_INFINITY;
             //System.out.println("Win Value : " + winValue + "; Total Visits: " + totalVisits + "; Parent Total Visits: " + parent.getTotalVisits());
-            return winValue / (double) totalVisits + 1.44 * (Math.sqrt(Math.log((double) parent.getTotalVisits()) / totalVisits));
+            return winValue / (double) totalVisits + 1.44 * (Math.sqrt(Math.log(parent.getTotalVisits()) / totalVisits));
         }
 
         /**
