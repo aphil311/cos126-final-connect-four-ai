@@ -29,8 +29,9 @@ The board is seven units wide and six units tall. When prompted `Column selectio
 - [John Levine - Monte Carlo Tree Search](https://www.youtube.com/watch?v=UXW2yZndl7U&ab_channel=JohnLevine)
 - [Educative - Java Tree Data Structure](https://www.educative.io/blog/data-structures-trees-java)
 - [Java Docs - Arrays Class](https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html)
-- [Stack Overflow AI - Interesting Thread on MCTS](https://ai.stackexchange.com/questions/21019/should-monte-carlo-tree-search-be-able-to-consistently-beat-me-in-the-connect-fo)
-- [JavaFX Community Docs](https://fxdocs.github.io/docs/html5/)
+- [Stack Exchange AI - Interesting Thread on MCTS](https://ai.stackexchange.com/questions/21019/should-monte-carlo-tree-search-be-able-to-consistently-beat-me-in-the-connect-fo)
+- [Stack Overflow - Get Native Windows 10 Look and Feel](https://stackoverflow.com/questions/11425103/how-to-get-the-windows-native-look-in-java-gui-programming/11426036)
+- [Java Docs - SwingUI](https://docs.oracle.com/javase/tutorial/uiswing/)
 
 # Analysis
 *Methods will be analyzed for complexity here*
