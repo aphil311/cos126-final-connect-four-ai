@@ -45,11 +45,13 @@ public class Board {
      * @param c the column the player wishes to play in
      * @param p the integer representation of the player
      */
-    public void insert(int c, int p) {
+    public int[] insert(int c, int p) {
         if (c >= board[0].length || c < 0) throw new IllegalArgumentException("insert parameter not within board size");
         if (this.isFull(c)) throw new IllegalArgumentException("cannot insert ... column is already full");
         board[height[c]][c] = p;
+        int[] coordinates = {c, height[c]};
         --height[c];
+        return coordinates;
     }
 
     /**
@@ -97,7 +99,6 @@ public class Board {
                 } else {
                     count = 1;
                     if (anInt != 0) check = anInt;
-                    else count = 0;
                 }
             }
             count = 0;
@@ -124,7 +125,6 @@ public class Board {
                 } else {
                     count = 1;
                     if (ints[j] != 0) check = ints[j];
-                    else count = 0;
                 }
             }
             count = 0;
@@ -159,7 +159,6 @@ public class Board {
                 } else {
                     count = 1;
                     if (num != 0) check = num;
-                    else count = 0;
                 }
                 j++;
             }
@@ -179,7 +178,6 @@ public class Board {
                 } else {
                     count = 1;
                     if (board[i][j] != 0) check = board[i][j];
-                    else count = 0;
                 }
                 i--;
             }
@@ -200,7 +198,6 @@ public class Board {
                 } else {
                     count = 1;
                     if (num != 0) check = num;
-                    else count = 0;
                 }
                 j--;
             }
@@ -220,7 +217,6 @@ public class Board {
                 } else {
                     count = 1;
                     if (board[i][j] != 0) check = board[i][j];
-                    else count = 0;
                 }
                 i--;
             }
@@ -238,6 +234,10 @@ public class Board {
      */
     public int getCols() {
         return board[0].length;
+    }
+
+    public int getCell(int x, int y) {
+        return board[y][x];
     }
 
     public int[] getHeights() {
@@ -258,18 +258,12 @@ public class Board {
     public String toString() {
         StringBuilder statement = new StringBuilder();
         for (int[] ints : board) {
-            statement.append("|");
             for (int anInt : ints) {
-                if (anInt == 1)
-                    statement.append("X|");
-                else if (anInt == 2)
-                    statement.append("O|");
-                else
-                    statement.append(" |");
+                statement.append(anInt).append(" ");
             }
             statement.append("\n");
         }
-        return statement.toString() + " 0 1 2 3 4 5 6";
+        return statement.toString();
     }
 
     public static void main(String[] args) {
