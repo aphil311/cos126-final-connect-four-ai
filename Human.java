@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.util.Scanner;
 
 /**
@@ -10,12 +9,11 @@ public class Human extends Player {
     /**
      * Creates a new object allowing for user input.
      *
-     * @param val   Integer representation of the player
-     * @param b     Board that should be played on
-     * @param color Color representation of the player
+     * @param val Integer representation of the player
+     * @param b   Board that should be played on
      */
-    public Human(int val, Board b, Color color) {
-        super(val, b, color);
+    public Human(int val, Board b) {
+        super(val, b);
         scan = new Scanner(System.in);
     }
 
@@ -48,7 +46,7 @@ public class Human extends Player {
      */
     public static void main(String[] args) {
         Board board = new Board();
-        Human player1 = new Human(1, board, Color.RED);
+        Human player1 = new Human(1, board);
         System.out.println(player1.isIllegalMove(90)); // return true
         System.out.println(player1.isIllegalMove(2)); // return false
 

@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -17,14 +16,13 @@ public class MonteCarlo extends Player {
      * @param val        integer representation of the monte carlo controlled
      *                   player
      * @param board      object representing the connect four board
-     * @param color      color representation of this player
      * @param opp        integer representation of the opponent
      * @param iterations number of times this tree should be searched per move
      * @param verb       verbose mode prints visualization of the ai
      */
-    public MonteCarlo(int val, Board board, Color color, int opp,
+    public MonteCarlo(int val, Board board, int opp,
                       int iterations, String verb) {
-        super(val, board, color);
+        super(val, board);
         this.opp = opp;
         this.iterations = iterations;
         if (verb.equals("-v"))
@@ -246,8 +244,8 @@ public class MonteCarlo extends Player {
             Board randomGame = new Board(board, height);
 
             // create new game and play through randomly until completion
-            Player us = new Random(val, randomGame, Color.BLACK, opp);
-            Player opponent = new Random(opp, randomGame, Color.BLACK, val);
+            Player us = new Random(val, randomGame, opp);
+            Player opponent = new Random(opp, randomGame, val);
             Player[] players = { us, opponent };
             int i = 0;
             while (!randomGame.isFull() && randomGame.checkWinner() == -1) {
@@ -399,8 +397,8 @@ public class MonteCarlo extends Player {
     public static void main(String[] args) {
         int its = Integer.parseInt(args[0]);
         Board board = new Board();
-        Player random = new MonteCarlo(1, board, Color.RED, 2, its, "-v");
-        Player human = new Human(2, board, Color.YELLOW);
+        Player random = new MonteCarlo(1, board, 2, its, "-v");
+        Player human = new Human(2, board);
 
         // a few moves to make sure everything works fine
         for (int i = 0; i < 30; i++) {

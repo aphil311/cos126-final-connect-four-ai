@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 /**
  * Play Connect Four in the command line!
  */
@@ -13,7 +11,7 @@ public class ConnectFour {
     public static void main(String[] args) {
         // initialize board and players
         Board board = new Board();
-        Player player1 = new Human(1, board, Color.RED);
+        Player player1 = new Human(1, board);
         Player player2;
         String arg1 = "";
         if (args.length > 1)
@@ -21,11 +19,11 @@ public class ConnectFour {
 
         // takes command line argument to determine opponent
         if (args.length > 0 && args[0].equals("easy"))
-            player2 = new Random(2, board, Color.YELLOW, 1);
+            player2 = new Random(2, board, 1);
         else if (args.length > 0 && args[0].equals("ai"))
-            player2 = new MonteCarlo(2, board, Color.YELLOW, 1, 25000, arg1);
+            player2 = new MonteCarlo(2, board, 1, 25000, arg1);
         else
-            player2 = new Human(2, board, Color.YELLOW);
+            player2 = new Human(2, board);
 
         Player[] players = { player1, player2 };
         int i = 0;

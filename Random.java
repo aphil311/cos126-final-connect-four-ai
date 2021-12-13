@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 /**
  * Randomly plays ConnectFour with the exception of blocking when an opponent
  * has three in a row.
@@ -12,11 +10,10 @@ public class Random extends Player {
      *
      * @param val   Integer value representing this player
      * @param board Board to be played on/edited
-     * @param color Color representation of this player
      * @param opp   Inter representation of the opponent
      */
-    public Random(int val, Board board, Color color, int opp) {
-        super(val, board, color);
+    public Random(int val, Board board, int opp) {
+        super(val, board);
         this.opp = opp;
     }
 
@@ -75,8 +72,8 @@ public class Random extends Player {
      */
     public static void main(String[] args) {
         Board board = new Board();
-        Player random = new Random(1, board, Color.RED, 2);
-        Player human = new Human(2, board, Color.YELLOW);
+        Player random = new Random(1, board, 2);
+        Player human = new Human(2, board);
 
         // a few moves to make sure everything works fine
         for (int i = 0; i < 7; i++) {
