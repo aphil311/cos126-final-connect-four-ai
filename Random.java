@@ -20,8 +20,8 @@ public class Random extends Player {
     /**
      * randomly chooses a column to play
      */
-    public void move() {
-        board.insert(educatedRandom(board.getBoard(), board.getHeights()),
+    public int[] move() {
+        return board.insert(educatedRandom(board.getBoard(), board.getHeights()),
                      this.getVal());
     }
 
