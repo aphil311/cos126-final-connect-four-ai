@@ -119,49 +119,5 @@ public class HelloFX extends Application {
         stage.setTitle("Connect 4");
         stage.setScene(startScene);
         stage.show();
-
-        // text.setX(310);
-        // text.setY(30);
-        // text.setText("Red Player's Turn");
-        // root.getChildren().add(text);
-        // for (int x = 0; x < 7; x++) {
-        //     for (int y = 0; y < 6; y++) {
-        //         Circle circ = new Circle(x * 100 + 60, y * 100 + 80, 30);
-        //         int cellVal = state.getCell(x, y);
-        //         root.getChildren().add(circ);
-        //         board[y][x] = circ;
-        //     }
-        
-        //     Button btn = new Button();
-        //     btn.setText("Column " + (x + 1));
-        //     btn.setLayoutX(25 + 100 * x);
-        //     btn.setLayoutY(640);
-        //     btn.setId(Integer.toString(x));
-        //     btn.setOnAction(new EventHandler<ActionEvent>() {
-        //         @Override
-        //         public void handle(ActionEvent event) {
-        //             int col = Integer.valueOf(btn.getId());
-        //             int val = (player ? 1 : 0) + 1;
-        //             try {
-        //                 int[] c = state.insert(col, val);
-        //                 player = changeCircle(c[0], c[1]);
-        //                 checkStatus();
-        //             } catch (IllegalArgumentException e) {
-        //                 Alert a = new Alert(AlertType.NONE);
-        //                 a.setAlertType(AlertType.WARNING);
-        //                 a.setContentText("You can't make this move!");
-        //                 a.show();
-        //             }
-        //             System.out.println(state);
-        //         }
-        //     });
-        //     root.getChildren().add(btn);
-        //     buttons[x] = btn;
-        // }
-        // Scene scene = new Scene(root, 720, 680);
-        // scene.setFill(Color.BLUE);
-        // stage.setTitle("Connect 4");
-        // stage.setScene(scene);
-        // stage.show();
     }
 }
