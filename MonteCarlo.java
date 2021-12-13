@@ -1,23 +1,34 @@
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * Uses a a slightly modified Monte Carlo Tree Search algorithm to play
+ * Connect Four with relatively high accuracy.
+ */
 public class MonteCarlo extends Player {
-    private final int opp; // integer representation of the opponent
-    private final int iterations; // number of times this tree should be iterated through
+    private final int opp;          // integer representation of the opponent
+    private final int iterations;   // number of times this tree should be
+    private final boolean verbose;  // print monte carlo visualizer
+    // iterated through
 
     /**
      * Creates a new MonteCarlo Tree
      *
-     * @param val        integer representation of the monte carlo controlled player
+     * @param val        integer representation of the monte carlo controlled
+     *                   player
      * @param board      object representing the connect four board
      * @param color      color representation of this player
      * @param opp        integer representation of the opponent
      * @param iterations number of times this tree should be searched per move
      */
-    public MonteCarlo(int val, Board board, Color color, int opp, int iterations) {
+    public MonteCarlo(int val, Board board, Color color, int opp,
+                      int iterations, String verb) {
         super(val, board, color);
         this.opp = opp;
         this.iterations = iterations;
+        if (verb.equals("-v"))
+            verbose = true;
+        else verbose = false;
     }
 
     /**
@@ -25,7 +36,7 @@ public class MonteCarlo extends Player {
      */
     public void move() {
         // create root of tree
-        Node root = new Node(board, val, opp);
+        Node root = new Node(board, this.getVal(), opp);
         // create nodes
         root.getAllStatesFromRoot();
         int win = 0;
@@ -37,19 +48,23 @@ public class MonteCarlo extends Player {
 
             // choose node
             while (!node.isLeaf()) {
-                if (!node.state.isFull()) // if board is full returnBestUCT gives error (no children)
+                if (!node.state.isFull())
                     node = node.returnBestUCT();
             }
 
             // if unexplored, roll out ... if explored, expand nodes
             if (node.getTotalVisits() == 0) {
                 win = node.rollout(node.getBoard(), node.getHeights());
-            } else {
-                if (!node.state.isFull()) { // if board is full returnBestUCT gives error (no children)
+            }
+            else {
+                // if board is full returnBestUCT gives error (no children)
+                if (!node.state.isFull()) {
                     node.getAllStates();                // expand
                     Node child = node.returnBestUCT();  // select
-                    win = child.rollout(child.getBoard(), child.getHeights());  //rollout
-                    child.incrementTotalVisits();       // first step of backpropagation
+                    // rollout
+                    win = child.rollout(child.getBoard(), child.getHeights());
+                    // first step of backpropagation
+                    child.incrementTotalVisits();
                     node.setWinValue(win);
                 }
             }
@@ -63,20 +78,32 @@ public class MonteCarlo extends Player {
             }
             root.incrementTotalVisits();
             root.setWinValue(win);
-        }
 
+            // lets the terminal show a visual of what column is preferred
+            // while the algorithm is running (just interesting)
+            if (timer % 100 == 0 && timer < 1001 && verbose) {
+                System.out.print(root.returnBestUCT().getColumn() + " >> ");
+            }
+        }
+        System.out.println(root.returnBestUCT().getColumn() + "\n");
         // play
-        board.insert(root.returnBestUCT().getColumn(), val);
+        board.insert(root.returnBestUCT().getColumn(), this.getVal());
     }
 
+    /**
+     * Node of the tree stores a state, total visits, and an integer value
+     * representing win probability.
+     */
     private class Node {
-        private final Board state;          // whatever board setup this node represents
-        private int totalVisits;            // number of times this board has been seen
-        private double winValue;            // number of times playout of this board results in a win
-        private Node parent;                // parent node
-        private ArrayList<Node> children;   // child nodes
-        private final int val, opp;         // stores integer representations of both players
-        private int column = -1;            // column of play this node represents
+        private final Board state; // whatever board setup this node represents
+        private int totalVisits; // number of times this board has been seen
+        // number of times playout of this board results in a win
+        private double winValue;
+        private Node parent; // parent node
+        private ArrayList<Node> children; // child nodes
+        // stores integer representations of both players
+        private final int val, opp;
+        private int column = -1; // column of play this node represents
 
         /**
          * creates a new node that is a child of one of the branches off of root
@@ -95,7 +122,7 @@ public class MonteCarlo extends Player {
         }
 
         /**
-         * creates a new  branch off of root
+         * Creates a new branch off of root
          *
          * @param board whatever board setup this node represents
          * @param val   integer representation of the MCTS player
@@ -112,9 +139,10 @@ public class MonteCarlo extends Player {
             // if next move is a win than it should be played automatically
             if (board.checkWinner() == val) {
                 winValue = Double.POSITIVE_INFINITY;
-                totalVisits = 1;        // TODO: Check if this is necessary
-                // if next move is a loss than it should be avoided
-            } else if (board.checkWinner() == opp) {
+                totalVisits = 1;
+            }
+            // if next move is a loss than it should be avoided automatically
+            else if (board.checkWinner() == opp) {
                 winValue = Double.NEGATIVE_INFINITY;
             }
             this.column = col;
@@ -124,14 +152,18 @@ public class MonteCarlo extends Player {
          * Links all possible plays to this node
          */
         private void getAllStatesFromRoot() {
-            for (int i = 0; i < state.getCols(); i++) {     // iterate through each possible move
-                if (!state.isFull(i)) {     // prevent from inserting in a column that is full
-                    Board newBoard = new Board(state.getBoard(), state.getHeights());   // defensive copy
-
+            // iterate through each possible move
+            for (int i = 0; i < state.getCols(); i++) {
+                // prevent from inserting in a column that is full
+                if (!state.isFull(i)) {
+                    // create a defensive copy
+                    Board newBoard = new Board(state.getBoard(),
+                                               state.getHeights());
                     newBoard.insert(i, val);
-                    // this algorithm requires the assumption of strong play from its opponent
-                    newBoard.insert(educatedRandom(newBoard.getBoard(), newBoard.getHeights()), opp);
-
+                    // this algorithm requires the assumption of strong play
+                    // from its opponent
+                    newBoard.insert(educatedRandom(newBoard.getBoard(),
+                                                   newBoard.getHeights()), opp);
                     // create node and link in both directions
                     Node node = new Node(newBoard, val, opp, i);
                     node.setParent(this);
@@ -141,19 +173,24 @@ public class MonteCarlo extends Player {
         }
 
         /**
-         * get all states but do not pay attention to column of play
+         * Get all states but do not pay attention to column of play
          */
         private void getAllStates() {
             for (int i = 0; i < state.getCols(); i++) {
                 if (!state.isFull(i)) {
-                    Board newBoard = new Board(state.getBoard(), state.getHeights());   // defensive copy
+                    // Defensive copy
+                    Board newBoard = new Board(state.getBoard(),
+                                               state.getHeights());
                     newBoard.insert(i, val);
 
-                    // prevents infinite loop when board is full and random method keeps trying to insert
+                    // prevents infinite loop when board is full and random
+                    // method keeps trying to insert
                     if (!newBoard.isFull())
-                        // this algorithm requires the assumption of optimal play from its opponent
-                        newBoard.insert(educatedRandom(newBoard.getBoard(), newBoard.getHeights()), opp);
-
+                        // this algorithm requires the assumption of strong
+                        // play from its opponent
+                        newBoard.insert(educatedRandom(newBoard.getBoard(),
+                                                       newBoard.getHeights()),
+                                        opp);
                     // create child node and link both ways
                     Node node = new Node(newBoard, val, opp);
                     node.setParent(this);
@@ -167,9 +204,11 @@ public class MonteCarlo extends Player {
          *
          * @return upper confidence bound
          */
-        private double calculateUCT() {
-            if (totalVisits == 0) return Double.POSITIVE_INFINITY; // for zero in denominator
-            return winValue / (double) totalVisits + 1.44 * (Math.sqrt(Math.log(parent.getTotalVisits()) / totalVisits));
+        public double calculateUCT() {
+            // for zero in denominator
+            if (totalVisits == 0) return Double.POSITIVE_INFINITY;
+            return winValue / (double) totalVisits + 1.44 * (Math
+                    .sqrt(Math.log(parent.getTotalVisits()) / totalVisits));
         }
 
         /**
@@ -198,7 +237,8 @@ public class MonteCarlo extends Player {
          * Simulates a random game from a given position
          *
          * @param board  two dimensional array representing the board
-         * @param height array that keeps track of how much space is left per column
+         * @param height array that keeps track of how much space is left per
+         *               column
          */
         private int rollout(int[][] board, int[] height) {
             Board randomGame = new Board(board, height);
@@ -206,24 +246,31 @@ public class MonteCarlo extends Player {
             // create new game and play through randomly until completion
             Player us = new Random(val, randomGame, Color.BLACK, opp);
             Player opponent = new Random(opp, randomGame, Color.BLACK, val);
-            Player[] players = {us, opponent};
+            Player[] players = { us, opponent };
             int i = 0;
             while (!randomGame.isFull() && randomGame.checkWinner() == -1) {
                 players[i].move();
                 if (i == 0) i = 1;
                 else i = 0;
             }
-            // if winner is val then win ++, if winner is opp then win --, else no change
+            // if winner is val then win ++, if winner is opp then win --,
+            // else no change
             if (randomGame.checkWinner() == val) {
                 winValue++;
                 return 1;
-            } else if (randomGame.checkWinner() == opp) {
+            }
+            else if (randomGame.checkWinner() == opp) {
                 winValue--;
                 return -1;
             }
             return 0;
         }
 
+        /**
+         * Setter method to increment or decrement win value
+         *
+         * @param win +1 for a win, -1 for a loss
+         */
         private void setWinValue(int win) {
             winValue += win;
         }
@@ -249,11 +296,13 @@ public class MonteCarlo extends Player {
         /**
          * Returns random open column as long as a win is not possible
          *
-         * @param board  two dimensional array representation of the board to be played on
+         * @param board  two dimensional array representation of the board to
+         *               be played on
          * @param height current heights of each column on the board
          * @return column that should be played, otherwise random number
          */
         private int educatedRandom(int[][] board, int[] height) {
+            // Check if opponent can win next move
             for (int i = 0; i < height.length; i++) {
                 Board boardCopy = new Board(board, height);
                 if (!boardCopy.isFull(i)) {
@@ -262,6 +311,8 @@ public class MonteCarlo extends Player {
                         return i;
                 }
             }
+
+            // Check if ai can win next move
             for (int i = 0; i < height.length; i++) {
                 Board boardCopy = new Board(board, height);
                 if (!boardCopy.isFull(i)) {
@@ -271,10 +322,12 @@ public class MonteCarlo extends Player {
                 }
             }
 
+            // otherwise play randomly
             Board boardCopy = new Board(board, height);
             int attempt;
             do {
-                attempt = StdRandom.uniform(7);
+                // StdRandom does not play nice with jar or JavaFX
+                attempt = (int) (Math.random() * 7);
             } while (boardCopy.isFull(attempt));
 
             return attempt;
@@ -292,7 +345,8 @@ public class MonteCarlo extends Player {
         /**
          * Accessor method for the column that this node assumes the ai plays
          *
-         * @return integer representing the column that this node added a piece to
+         * @return integer representing the column that this node added a piece
+         * to
          */
         private int getColumn() {
             return column;
@@ -301,7 +355,8 @@ public class MonteCarlo extends Player {
         /**
          * Accessor method to return the board
          *
-         * @return two dimensional array representation of the state of this node
+         * @return two dimensional array representation of the state of this
+         * node
          */
         private int[][] getBoard() {
             return state.getBoard();
@@ -310,7 +365,8 @@ public class MonteCarlo extends Player {
         /**
          * Accessor method to return the height
          *
-         * @return one dimensional array representation of the state of this board
+         * @return one dimensional array representation of the state of this
+         * board
          */
         private int[] getHeights() {
             return state.getHeights();
@@ -330,11 +386,25 @@ public class MonteCarlo extends Player {
          */
         private void incrementTotalVisits() {
             totalVisits++;
-            //System.out.println(totalVisits);
         }
     }
 
+    /**
+     * Main method tests this class
+     *
+     * @param args Single integer representing iterations the tree should go
+     */
     public static void main(String[] args) {
+        int its = Integer.parseInt(args[0]);
+        Board board = new Board();
+        Player random = new MonteCarlo(1, board, Color.RED, 2, its, "-v");
+        Player human = new Human(2, board, Color.YELLOW);
 
+        // a few moves to make sure everything works fine
+        for (int i = 0; i < 30; i++) {
+            random.move();
+            System.out.println(board);
+            human.move();
+        }
     }
 }

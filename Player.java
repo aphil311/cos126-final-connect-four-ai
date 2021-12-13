@@ -1,7 +1,11 @@
-import java.awt.*;
+import java.awt.Color;
 
+/**
+ * Abstract class storing critical information to a player and an abstract
+ * move method to be implemented.
+ */
 abstract class Player {
-    protected final int val;        // integer representation of this player
+    private final int val;        // integer representation of this player
     private final Color color;    // color assigned to this player
     Board board;            // board to modify
 
