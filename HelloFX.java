@@ -15,44 +15,42 @@ public class HelloFX extends Application {
     // true = RED, false = YELLOW
     private boolean gameStatus = false;
     private boolean player = true;
-    private Board state = new Board();
+    private Board state;
     private Circle[][] board = new Circle[6][7];
     private Button[] buttons = new Button[7];
     private Text text = new Text();
     // 0 = BLACK, 1 = YELLOW, 2 = RED
-    // public HelloFX (int[][] state, boolean player) {
-    //     this.state = state;
-    //     this.player = player;
-    // }
 
     public boolean changeCircle(int x, int y) {
         if (player) {
-            board[y][x].setFill(Color.RED);
+            board[y][x].setFill(javafx.scene.paint.Color.RED);
             text.setText("Yellow Player's Turn");
         }
         else {
-            board[y][x].setFill(Color.YELLOW);
+            board[y][x].setFill(javafx.scene.paint.Color.YELLOW);
             text.setText("Red Player's Turn");
         }
         return !player;
     }
-    public void checkStatus() {
+    public boolean checkStatus() {
         int progress = state.checkWinner();
-        if (progress != -1) {
-            Alert a = new Alert(AlertType.NONE);
-            a.setAlertType(AlertType.INFORMATION);
-            String winnerText = "Player " + ((progress == 2) ? "Red" : "Yellow") + " Wins!";
-            a.setContentText(winnerText);
-            text.setText(winnerText);
-            a.show();
-            for (Button btn : buttons) {
-                btn.setDisable(true);
-            }
-
+        if (progress == -1) return false;
+        Alert a = new Alert(AlertType.NONE);
+        a.setAlertType(AlertType.INFORMATION);
+        String winnerText = "Player " + ((progress == 2) ? "Red" : "Yellow") + " Wins!";
+        a.setContentText(winnerText);
+        text.setText(winnerText);
+        a.show();
+        for (Button btn : buttons) {
+            btn.setDisable(true);
         }
+        return true;
     }
 
-    public void handleTwoPlayer(Group root) {
+    public void handleTwoPlayer(Group root, Stage stage) {
+        //MonteCarlo mc = new MonteCarlo(1, state, java.awt.Color.YELLOW, 2, 1);
+        state = new Board();
+        //mc.move();
         root.getChildren().clear();
         text.setX(310);
         text.setY(30);
@@ -79,7 +77,19 @@ public class HelloFX extends Application {
                     try {
                         int[] c = state.insert(col, val);
                         player = changeCircle(c[0], c[1]);
-                        checkStatus();
+                        if (checkStatus()) {
+                            Button restart = new Button("Restart Game");
+                            text.setText("");
+                            restart.setLayoutX(310);
+                            restart.setLayoutY(10);
+                            restart.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent event) {
+                                    start(stage);
+                                }
+                            });
+                            root.getChildren().add(restart);
+                        }
                     } catch (IllegalArgumentException e) {
                         Alert a = new Alert(AlertType.NONE);
                         a.setAlertType(AlertType.WARNING);
@@ -107,7 +117,7 @@ public class HelloFX extends Application {
         twoPlayer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                handleTwoPlayer(root);
+                handleTwoPlayer(root, stage);
             }
         });
         onePlayer.setLayoutX(400);
@@ -115,7 +125,7 @@ public class HelloFX extends Application {
         root.getChildren().addAll(twoPlayer, onePlayer);
         
         Scene startScene = new Scene(root, 720, 680);
-        startScene.setFill(Color.BLUE);
+        startScene.setFill(javafx.scene.paint.Color.BLUE);
         stage.setTitle("Connect 4");
         stage.setScene(startScene);
         stage.show();
