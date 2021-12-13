@@ -11,7 +11,7 @@ public class Board {
     private int[] height;
 
     /**
-     * Stores all
+     * Creates a new board object with empty arrays representing the board.
      */
     public Board() {
         board = new int[6][7];
@@ -20,7 +20,7 @@ public class Board {
     }
 
     /**
-     * Creates a new board objet from an existing one by taking a 2d
+     * Creates a new board object from an existing one by taking a 2d
      * representation and a height array.
      *
      * @param board  2d Array representing the board
@@ -62,6 +62,7 @@ public class Board {
      *
      * @param c the column the player wishes to play in
      * @param p the integer representation of the player
+     * @return coordinates for where the piece was placed
      */
     public int[] insert(int c, int p) {
         if (c >= board[0].length || c < 0) throw new IllegalArgumentException(
@@ -75,7 +76,7 @@ public class Board {
     }
 
     /**
-     * checks if the entire board is full
+     * Checks if the entire board is full.
      *
      * @return true if no more playable spaces, false otherwise
      */
@@ -87,7 +88,7 @@ public class Board {
     }
 
     /**
-     * check if a player has won the game
+     * Check if a player has won the game.
      *
      * @return -1 if no winner, otherwise return value of the winning player
      */
@@ -101,9 +102,8 @@ public class Board {
     }
 
     /**
-     * checks each row
-     * assumes that there are not multiple winners (holds true if we check
-     * after each move)
+     * Checks each row assuming that there are not multiple winners
+     * (holds true if we check after each move).
      *
      * @return integer representation of the winning player otherwise return -1
      */
@@ -129,9 +129,8 @@ public class Board {
     }
 
     /**
-     * checks each column
-     * assumes that there are not multiple winners (holds true if we check
-     * after each move)
+     * Checks each column assuming that there are not multiple winners
+     * (holds true if we check after each move).
      *
      * @return integer representation of the winning player otherwise return -1
      */
@@ -157,9 +156,8 @@ public class Board {
     }
 
     /**
-     * checks each possible diagonal
-     * assumes that there are not multiple winners (holds true if we check
-     * after each move)
+     * Checks each possible diagonal assuming that there are not multiple
+     * winners (holds true if we check after each move).
      *
      * @return integer representation of the winning player otherwise return -1
      */
@@ -264,9 +262,9 @@ public class Board {
      * Accessor method to get the value stored in the board given an x and y
      * value.
      *
-     * @param x
-     * @param y
-     * @return
+     * @param x Column in question
+     * @param y Row in question
+     * @return Integer value stored at the given coordinates
      */
     public int getCell(int x, int y) {
         return board[y][x];
@@ -319,12 +317,13 @@ public class Board {
     /**
      * Tester method to test each method in this class
      *
-     * @param args
+     * @param args Command line arguments (should be empty)
      */
     public static void main(String[] args) {
         Board board1 = new Board();
         board1.insert(1, 1);
         board1.insert(1, 2);
+        // should have a 1 and a 2 in the second column
         // should have a 1 and a 2 in the second column
         System.out.println(board1);
         board1.insert(1, 1);

@@ -20,6 +20,7 @@ public class MonteCarlo extends Player {
      * @param color      color representation of this player
      * @param opp        integer representation of the opponent
      * @param iterations number of times this tree should be searched per move
+     * @param verb       verbose mode prints visualization of the ai
      */
     public MonteCarlo(int val, Board board, Color color, int opp,
                       int iterations, String verb) {
@@ -239,6 +240,7 @@ public class MonteCarlo extends Player {
          * @param board  two dimensional array representing the board
          * @param height array that keeps track of how much space is left per
          *               column
+         * @return +1 if a win, -1 if a loss, 0 if a draw
          */
         private int rollout(int[][] board, int[] height) {
             Board randomGame = new Board(board, height);

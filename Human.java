@@ -5,14 +5,14 @@ import java.util.Scanner;
  * Play Connect Four with user input
  */
 public class Human extends Player {
-    Scanner scan;
+    Scanner scan; // Scanner
 
     /**
-     * Creates a new object allowing for user input
+     * Creates a new object allowing for user input.
      *
-     * @param val
-     * @param b
-     * @param color
+     * @param val   Integer representation of the player
+     * @param b     Board that should be played on
+     * @param color Color representation of the player
      */
     public Human(int val, Board b, Color color) {
         super(val, b, color);
