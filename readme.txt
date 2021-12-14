@@ -14,7 +14,7 @@ NetID 1: el5919
 
 Name 2: Aidan Phillips
 
-NetID 2: ap8914
+NetID 2: ap9884
 
 Project preceptor name: Alan Kaplan
 
@@ -33,7 +33,11 @@ Number of hours:
 
 Describe your project in a few sentences.
 
-Our project is a Connect 4 with a GUI with two modes of gameplay: one-player,where the user faces off against an AI, and two-player, where two users alternate playing in real time. Users play with 
+Our project is a Connect 4 with a GUI with two modes of gameplay: one-player,
+where the user faces off against an AI, and two-player, where two users alternate 
+playing in real time. Users play with the buttons at the bottom of the screen, which
+indicate the seven columns. Users play until the board is full or a player wins, in 
+which case they can restart the game.
 
 
 Describe in detail your three features and where in your program
