@@ -88,7 +88,7 @@ Our program uses a 1D array to store information for GUI components such as butt
 List the two custom functions written by your project group, including function
 signatures and line numbers; if your project group wrote more than two custom
 functions, choose the two functions that were most extensively tested.
-1. 
+1. public int[] insert(int c, int p) @ line 67 in Board.java
 
 2. 
 
@@ -97,9 +97,9 @@ For each of the four tests (two for each function), explain what was being
 tested and the expected result. For non-textual results (e.g. graphical or
 auditory), you may describe in your own words what the expected result
 should be or reference output files (e.g. images, audio files).
-1.
+1. Lines 330 and 331, tests the method's ability to stack result should have a 1 and 2 in the second column
 
-2.
+2. Line 362, rests insertin an a full column, throws an error
 
 3.
 
@@ -116,6 +116,8 @@ links suffice).
 - https://openjfx.io/openjfx-docs/
 - https://docs.oracle.com/javafx/2/get_started/hello_world.htm
 - https://docs.oracle.com/javase/8/javafx/api/index.html
+- https://www.youtube.com/watch?v=UXW2yZndl7U&ab_channel=JohnLevine
+- https://www.educative.io/blog/data-structures-trees-java
 
 Remember that you should *ALSO* be citing every resource that informed your code at/near the line(s) of code that it informed.
 
