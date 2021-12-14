@@ -43,39 +43,55 @@ public class GameVisualizer extends Application {
     // creates the scene
     Scene startScene = new Scene(root, 720, 680);
 
+    // method that changes the visual GUI board, takes coordinates and the stage as input
     public boolean changeCircle(int x, int y, Stage stage) {
+        // if player is red:
         if (player) {
+            // fill the specified slot with red and change to yellow's turn
             board[y][x].setFill(javafx.scene.paint.Color.RED);
             text.setText("Yellow Player's Turn");
         }
-        else {
+        else { // if player is yellow:
+            // fill the specified slot with yellow and change to red's turn
             board[y][x].setFill(javafx.scene.paint.Color.YELLOW);
             text.setText("Red Player's Turn");
         }
+        // check if game is won or full
         if (checkStatus()) {
+            // if so, add a restart button
             Button restart = new Button("Restart Game");
+            // clear the player turn text
             text.setText("");
             restart.setLayoutX(310);
             restart.setLayoutY(10);
+            // set the restart button to the initial screen
             restart.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     start(stage);
                 }
             });
+            // add button to the screen
             root.getChildren().add(restart);
         }
+        // if no player has won yet, return the next player to move
         return !player;
     }
 
+    // checks status of game
     public boolean checkStatus() {
+        // if board is full, announce a tie and create an alert for it
         if (state.isFull()) {
             createAlert("Tie!");
             return true;
         }
+        // otherwise, check for a winner
         int progress = state.checkWinner();
+        // if no one has won, continue on with the game
         if (progress == -1) return false;
+        // otherwise, announce the given winner
         String alertText = "Player " + ((progress == 2) ? "Red" : "Yellow") + " Wins!";
+        // print the winner, and create an alert
         System.out.println(alertText);  
         createAlert(alertText);
         return true;
@@ -84,11 +100,13 @@ public class GameVisualizer extends Application {
     // Method for creating an ending alert given a message
     // disables all buttons as well
     public void createAlert(String s) {
+        // create an alert with specified message
         Alert a = new Alert(AlertType.NONE);
         a.setAlertType(AlertType.INFORMATION);
         a.setContentText(s);
         text.setText(s);
         a.show();
+        // disable each button
         for (Button btn : buttons) {
             btn.setDisable(true);
         }
@@ -198,7 +216,9 @@ public class GameVisualizer extends Application {
         twoPlayer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                // method that starts the game
                 handleGame(root, stage);
+                // set isOnePlayer to false
                 isOnePlayer = false;
             }
         });
@@ -209,7 +229,9 @@ public class GameVisualizer extends Application {
         onePlayer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                // method that starts the game
                 handleGame(root, stage);
+                // set isOnePlayer to true
                 isOnePlayer = true;
 
             }
