@@ -16,7 +16,7 @@ Name 2: Aidan Phillips
 
 NetID 2: ap8914
 
-Project preceptor name: 
+Project preceptor name: Alan Kaplan
 
 Project title:
 
@@ -80,8 +80,8 @@ Describe the data structure your program uses and how it supports your program's
 functionality (include the variable name and the line number(s) at which it is
 declared and initialized).
 
-
-
+GameVisualizer:
+Our program uses a 1D array to store information for GUI components such as buttons (line 28, stored line 168) or board coordinates (line 128 / 160). It uses a 2D array to store the Circle objects (initialized at line 26, filled in lines 100-108).
 
 
 List the two custom functions written by your project group, including function
