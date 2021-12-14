@@ -22,7 +22,7 @@ Project title: Connect 4
 
 CodePost link for proposal feedback: https://codepost.io/code/488287
 
-Link to project video: 
+Link to project video: https://youtu.be/gj2KznukrCY 
 
 Approximate number of hours to complete the final project
 Number of hours: 55
@@ -44,18 +44,38 @@ Describe in detail your three features and where in your program
 they are implemented (e.g. starting and ending line numbers,
 function names, etc.).
 
-1. Users can interact with the program to add checkers to a column of their choice. We would have users either input a number corresponding to a column through the command line or have them click buttons which would lie underneath the grid of the connect 4.
+1. Users can interact with the program to add checkers to a column of their 
+choice. We would have users either input a number corresponding to a column 
+through the command line or have them click buttons which would lie underneath 
+the grid of the connect 4.
 
 Implementation for adding checkers is in Board.java method insert, lines 67-76. 
-In the GUI, this occurs in GameVisualizer.java when the user interacts with the GUI and clicks a button, which is handled in lines 88-170, but more specifically 117-154, which is the button handler.
+In the GUI, this occurs in GameVisualizer.java when the user interacts with the 
+GUI and clicks a button, which is handled in lines 88-170, but more specifically 
+117-154, which is the button handler.
 
-2. The board will update according to user input and show updated layouts until it detects that one of the players has won or that the game is at a tie. We would have the program check whether or not a certain pattern is fulfilled by a color by iterating through and see which colors correspond to each slot in the grid. This would occur after every move.
+2. The board will update according to user input and show updated layouts until 
+it detects that one of the players has won or that the game is at a tie. We would 
+have the program check whether or not a certain pattern is fulfilled by a color 
+by iterating through and see which colors correspond to each slot in the grid. 
+This would occur after every move.
 
-Implementation for checking the state of the board is throughout lines 53-299 of Board.java, which checks for possible winning scenarios, adds checkers to the board (as desribed in the first feature), and also checks when the board is full. This is implemented in the GUI in method checkStatus, lines 61-72 of GameVisualizer.
+Implementation for checking the state of the board is throughout lines 53-299 of 
+Board.java, which checks for possible winning scenarios, adds checkers to the 
+board (as desribed in the first feature), and also checks when the board is full. 
+This is implemented in the GUI in method checkStatus, lines 61-72 of GameVisualizer.
 
-3. Two modes of play - first mode is the "simple" one based on random choices by the computer. Second model is "more intelligent" and uses some extended logic to pay smarter.
+3. Two modes of play - first mode is the "simple" one based on random choices by 
+the computer. Second model is "more intelligent" and uses some extended logic to 
+pay smarter.
 
-This feature was modified in the case that we were unable to execute a more intelligent mode of play. We were ultimately able to create the latter feature rather than the simpler, randomized computer player. Implementation for the two modes of play is introduced in GameVisualizer method start on lines 173-214. Method handleGame handles the mode of play through the boolean isOnePlayer. The computer player is executed on lines 156-163. The setup of the AI is in all of MonteCarlo.java, which plays "intelligently."
+This feature was modified in the case that we were unable to execute a more 
+intelligent mode of play. We were ultimately able to create the latter feature 
+rather than the simpler, randomized computer player. Implementation for the two 
+modes of play is introduced in GameVisualizer method start on lines 173-214. 
+Method handleGame handles the mode of play through the boolean isOnePlayer. 
+The computer player is executed on lines 156-163. The setup of the AI is in 
+all of MonteCarlo.java, which plays "intelligently."
 
 
 Describe in detail how to compile and run your program. Include a few example
@@ -64,17 +84,31 @@ outputs (e.g. graphical or auditory), feel free to describe in words what the
 output should be or reference output files (e.g. images, audio files) of the
 expected output.
 
-JavaFX has already been included in the project. To run the program, compile with the command `javac --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer.java` and then run it with `java --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer`
+JavaFX has already been included in the project. To run the program, compile 
+with the command 
+`javac --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer.java` 
 
-The output should be a new window with the opening screen prompting the user for a mode of play.
+and then run it with 
+`java --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer`
 
-There is also a CLI version that prompts for user input specifying the index of the column they would like to play in. This is run with the command `java ConnectFour.java <mode>` where mode is either "easy", "ai", or any other string. Any other string (or empty) will start a two player game. It can also be run against the ai in verbose mode by adding the flag -v. This mode shows the ai's preference of column as the Monte Carlo Tree Search algorithm runs.
+The output should be a new window with the opening screen prompting the user for a 
+mode of play.
+
+There is also a CLI version that prompts for user input specifying the index of the 
+column they would like to play in. This is run with the command 
+`java ConnectFour.java <mode>` where mode is either "easy", "ai", or any other string. 
+Any other string (or empty) will start a two player game. It can also be run against 
+the ai in verbose mode by adding the flag -v. This mode shows the ai's preference of 
+column as the Monte Carlo Tree Search algorithm runs.
 
 
 Describe how your program accepts user input and mention the line number(s) at
 which your program accepts user input.
 
-GUI: our program accepts user input when the user clicks on a button This is executed in GameVisualizer, seen in lines 188-203, which accepts input for the gameplay mode, lines 50-55, which accepts input for restarting the game, and lines 117-147, which accepts input for adding checkers to the columns.
+GUI: our program accepts user input when the user clicks on a button This is executed 
+in GameVisualizer, seen in lines 188-203, which accepts input for the gameplay mode, 
+lines 50-55, which accepts input for restarting the game, and lines 117-147, which 
+accepts input for adding checkers to the columns.
 
 CLI: accepts user input from the Human Class line 27.
 
@@ -82,7 +116,9 @@ CLI: accepts user input from the Human Class line 27.
 Describe how your program produces output based on user input (mention line
 numbers).
 
-GUI: our program produces output by changing the view of the board, seen in the method changeCircle in GameVisualizer on lines 36-59. It also produces output when alerting the user of a game's outcome, seen in lines 61-85.
+GUI: our program produces output by changing the view of the board, seen in the 
+method changeCircle in GameVisualizer on lines 36-59. It also produces output when 
+alerting the user of a game's outcome, seen in lines 61-85.
 
 CLI: Outputs in the ConnectFour class line 33 with a string from the Human Class.
 
@@ -92,7 +128,9 @@ functionality (include the variable name and the line number(s) at which it is
 declared and initialized).
 
 GameVisualizer:
-Our program uses a 1D array to store information for GUI components such as buttons (line 28, stored line 168) or board coordinates (line 128 / 160). It uses a 2D array to store the Circle objects (initialized at line 26, filled in lines 100-108).
+Our program uses a 1D array to store information for GUI components such as buttons 
+(line 28, stored line 168) or board coordinates (line 128 / 160). It uses a 2D array 
+to store the Circle objects (initialized at line 26, filled in lines 100-108).
 
 
 List the two custom functions written by your project group, including function
@@ -107,7 +145,8 @@ For each of the four tests (two for each function), explain what was being
 tested and the expected result. For non-textual results (e.g. graphical or
 auditory), you may describe in your own words what the expected result
 should be or reference output files (e.g. images, audio files).
-1. Lines 330 and 331, tests the method's ability to stack result should have a 1 and 2 in the second column
+1. Lines 330 and 331, tests the method's ability to stack result should have a 1 
+and 2 in the second column
 
 2. Line 362, rests insertin an a full column, throws an error
 
@@ -129,7 +168,8 @@ links suffice).
 - https://www.youtube.com/watch?v=UXW2yZndl7U&ab_channel=JohnLevine
 - https://www.educative.io/blog/data-structures-trees-java
 
-Remember that you should *ALSO* be citing every resource that informed your code at/near the line(s) of code that it informed.
+Remember that you should *ALSO* be citing every resource that informed your code 
+at/near the line(s) of code that it informed.
 
 Did you receive help from classmates, past COS 126 students, or anyone else?
 If so, please list their names.  ("A Sunday lab TA" or "Office hours on
@@ -154,18 +194,18 @@ List any other comments here.
  **********************************************************************/
 
 Please mark that you’ve done all of the following steps:
-[ ] Created a project.zip file, unzipped its contents, and checked that our
+[X] Created a project.zip file, unzipped its contents, and checked that our
     compile and run commands work on the unzipped contents. Ensure that the .zip
     file is under 50MB in size.
-[ ] Created and uploaded a Loom or YouTube video, set its thumbnail/starting
+[X] Created and uploaded a Loom or YouTube video, set its thumbnail/starting
     frame to be an image of your program or a title slide, and checked that
     the video is viewable in an incognito browser.
-[ ] Uploaded all .java files to TigerFile.
-[ ] Uploaded project.zip file to TigerFile.
+[X] Uploaded all .java files to TigerFile.
+[X] Uploaded project.zip file to TigerFile.
 
 After you’ve submitted the above on TigerFile, remember to do the following:
-[ ] Complete and upload readme.txt to TigerFile.
-[ ] Complete and submit Google Form
+[X] Complete and upload readme.txt to TigerFile.
+[X] Complete and submit Google Form
     (https://forms.cs50.io/de2ccd26-d643-4b8a-8eaa-417487ba29ab).
 
 
