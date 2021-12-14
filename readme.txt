@@ -20,12 +20,12 @@ Project preceptor name: Alan Kaplan
 
 Project title: Connect 4
 
-CodePost link for proposal feedback:
+CodePost link for proposal feedback: https://codepost.io/code/488287
 
-Link to project video: https://youtu.be/gj2KznukrCY
+Link to project video: 
 
 Approximate number of hours to complete the final project
-Number of hours:
+Number of hours: 55
 
 /**********************************************************************
  * Required Questions                                                 *
@@ -64,17 +64,23 @@ JavaFX has already been included in the project. To run the program, compile wit
 
 The output should be a new window with the opening screen prompting the user for a mode of play.
 
+There is also a CLI version that prompts for user input specifying the index of the column they would like to play in. This is run with the command `java ConnectFour.java <mode>` where mode is either "easy", "ai", or any other string. Any other string (or empty) will start a two player game. It can also be run against the ai in verbose mode by adding the flag -v. This mode shows the ai's preference of column as the Monte Carlo Tree Search algorithm runs.
+
 
 Describe how your program accepts user input and mention the line number(s) at
 which your program accepts user input.
 
 GUI: our program accepts user input when the user clicks on a button This is executed in GameVisualizer, seen in lines 188-203, which accepts input for the gameplay mode, lines 50-55, which accepts input for restarting the game, and lines 117-147, which accepts input for adding checkers to the columns.
 
+CLI: accepts user input from the Human Class line 27.
+
 
 Describe how your program produces output based on user input (mention line
 numbers).
 
 GUI: our program produces output by changing the view of the board, seen in the method changeCircle in GameVisualizer on lines 36-59. It also produces output when alerting the user of a game's outcome, seen in lines 61-85.
+
+CLI: Outputs in the ConnectFour class line 33 with a string from the Human Class.
 
 
 Describe the data structure your program uses and how it supports your program's
@@ -90,7 +96,7 @@ signatures and line numbers; if your project group wrote more than two custom
 functions, choose the two functions that were most extensively tested.
 1. public int[] insert(int c, int p) @ line 67 in Board.java
 
-2. 
+2. public int checkWinner() @ line 95 in Board.java
 
 List the line numbers where you test each of your two custom functions twice.
 For each of the four tests (two for each function), explain what was being
@@ -101,9 +107,9 @@ should be or reference output files (e.g. images, audio files).
 
 2. Line 362, rests insertin an a full column, throws an error
 
-3.
+3. Line 344 should have no winner, so method should return -1
 
-4.
+4. Line 347 is tests a board with four 1s in a row so method returns 1
 
 
 /**********************************************************************
