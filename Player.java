@@ -11,7 +11,7 @@ abstract class Player {
         board = b;
     }
 
-    abstract void move();
+    abstract int[] move();
 
     /**
      * accessor method for the val variable

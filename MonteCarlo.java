@@ -33,7 +33,7 @@ public class MonteCarlo extends Player {
     /**
      * Uses a monte carlo tree search of a certain depth given by iterations
      */
-    public void move() {
+    public int[] move() {
         // create root of tree
         Node root = new Node(board, this.getVal(), opp);
         // create nodes
@@ -86,7 +86,7 @@ public class MonteCarlo extends Player {
         }
         System.out.println(root.returnBestUCT().getColumn() + "\n");
         // play
-        board.insert(root.returnBestUCT().getColumn(), this.getVal());
+        return board.insert(root.returnBestUCT().getColumn(), this.getVal());
     }
 
     /**

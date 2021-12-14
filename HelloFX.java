@@ -10,18 +10,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import java.util.concurrent.TimeUnit;
 
 public class HelloFX extends Application {
     // true = RED, false = YELLOW
+    private MonteCarlo mc;
+    private boolean isOnePlayer = true;
     private boolean gameStatus = false;
     private boolean player = true;
     private Board state;
     private Circle[][] board = new Circle[6][7];
     private Button[] buttons = new Button[7];
+    private Group root = new Group();
     private Text text = new Text();
     // 0 = BLACK, 1 = YELLOW, 2 = RED
 
-    public boolean changeCircle(int x, int y) {
+    public boolean changeCircle(int x, int y, Stage stage) {
         if (player) {
             board[y][x].setFill(javafx.scene.paint.Color.RED);
             text.setText("Yellow Player's Turn");
@@ -29,6 +33,19 @@ public class HelloFX extends Application {
         else {
             board[y][x].setFill(javafx.scene.paint.Color.YELLOW);
             text.setText("Red Player's Turn");
+        }
+        if (checkStatus()) {
+            Button restart = new Button("Restart Game");
+            text.setText("");
+            restart.setLayoutX(310);
+            restart.setLayoutY(10);
+            restart.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    start(stage);
+                }
+            });
+            root.getChildren().add(restart);
         }
         return !player;
     }
@@ -48,9 +65,7 @@ public class HelloFX extends Application {
     }
 
     public void handleTwoPlayer(Group root, Stage stage) {
-        //MonteCarlo mc = new MonteCarlo(1, state, java.awt.Color.YELLOW, 2, 1);
         state = new Board();
-        //mc.move();
         root.getChildren().clear();
         text.setX(310);
         text.setY(30);
@@ -76,7 +91,7 @@ public class HelloFX extends Application {
                     int val = (player ? 1 : 0) + 1;
                     try {
                         int[] c = state.insert(col, val);
-                        player = changeCircle(c[0], c[1]);
+                        player = changeCircle(c[0], c[1], stage);
                         if (checkStatus()) {
                             Button restart = new Button("Restart Game");
                             text.setText("");
@@ -96,6 +111,11 @@ public class HelloFX extends Application {
                         a.setContentText("You can't make this move!");
                         a.show();
                     }
+                    if (isOnePlayer) {
+                        mc = new MonteCarlo(1, state, 2, 2500, "");
+                        int[] c = mc.move();
+                        player = changeCircle(c[0], c[1], stage);
+                    }
                     System.out.println(state);
                 }
             });
@@ -105,7 +125,7 @@ public class HelloFX extends Application {
     }
 
     public void start(Stage stage) {
-        Group root = new Group();
+        root.getChildren().clear();
         Text startText = new Text("Which mode would you like to play?");
         startText.setX(260);
         startText.setY(200);
@@ -118,10 +138,17 @@ public class HelloFX extends Application {
             @Override
             public void handle(ActionEvent event) {
                 handleTwoPlayer(root, stage);
+                isOnePlayer = false;
             }
         });
         onePlayer.setLayoutX(400);
         onePlayer.setLayoutY(300);
+        onePlayer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                handleTwoPlayer(root, stage);
+            }
+        });
         root.getChildren().addAll(twoPlayer, onePlayer);
         
         Scene startScene = new Scene(root, 720, 680);
