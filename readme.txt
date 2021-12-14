@@ -22,7 +22,7 @@ Project title: Connect 4
 
 CodePost link for proposal feedback:
 
-Link to project video: 
+Link to project video: https://youtu.be/gj2KznukrCY
 
 Approximate number of hours to complete the final project
 Number of hours:

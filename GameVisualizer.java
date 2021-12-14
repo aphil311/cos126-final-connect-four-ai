@@ -210,6 +210,8 @@ public class GameVisualizer extends Application {
             @Override
             public void handle(ActionEvent event) {
                 handleGame(root, stage);
+                isOnePlayer = true;
+
             }
         });
         // add both buttons to the screen
