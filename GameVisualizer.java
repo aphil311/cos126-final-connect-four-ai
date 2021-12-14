@@ -12,7 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.util.concurrent.TimeUnit;
 
-public class HelloFX extends Application {
+public class GameVisualizer extends Application {
     // true = RED, false = YELLOW
     private MonteCarlo mc;
     private boolean isOnePlayer = true;
