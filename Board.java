@@ -120,6 +120,7 @@ public class Board {
                 else {
                     count = 1;
                     if (anInt != 0) check = anInt;
+                    else count = 0;
                 }
             }
             count = 0;
@@ -147,6 +148,7 @@ public class Board {
                 else {
                     count = 1;
                     if (ints[j] != 0) check = ints[j];
+                    else count = 0;
                 }
             }
             count = 0;
@@ -181,6 +183,7 @@ public class Board {
                 else {
                     count = 1;
                     if (num != 0) check = num;
+                    else count = 0;
                 }
                 j++;
             }
@@ -200,6 +203,7 @@ public class Board {
                 else {
                     count = 1;
                     if (board[i][j] != 0) check = board[i][j];
+                    else count = 0;
                 }
                 i--;
             }
@@ -220,6 +224,7 @@ public class Board {
                 else {
                     count = 1;
                     if (num != 0) check = num;
+                    else count = 0;
                 }
                 j--;
             }
@@ -239,6 +244,7 @@ public class Board {
                 else {
                     count = 1;
                     if (board[i][j] != 0) check = board[i][j];
+                    else count = 0;
                 }
                 i--;
             }
