@@ -23,6 +23,7 @@ public class HelloFX extends Application {
     private Button[] buttons = new Button[7];
     private Group root = new Group();
     private Text text = new Text();
+    Scene startScene = new Scene(root, 720, 680);
     // 0 = BLACK, 1 = YELLOW, 2 = RED
 
     public boolean changeCircle(int x, int y, Stage stage) {
@@ -50,22 +51,30 @@ public class HelloFX extends Application {
         return !player;
     }
     public boolean checkStatus() {
+        if (state.isFull()) {
+            createAlert("Tie!");
+            return true;
+        }
         int progress = state.checkWinner();
         if (progress == -1) return false;
+        String alertText = "Player " + ((progress == 2) ? "Red" : "Yellow") + " Wins!";
+        System.out.println(alertText);  
+        createAlert(alertText);
+        return true;
+    }
+
+    public void createAlert(String s) {
         Alert a = new Alert(AlertType.NONE);
         a.setAlertType(AlertType.INFORMATION);
-        String winnerText = "Player " + ((progress == 2) ? "Red" : "Yellow") + " Wins!";
-        a.setContentText(winnerText);
-        text.setText(winnerText);
+        a.setContentText(s);
+        text.setText(s);
         a.show();
         for (Button btn : buttons) {
             btn.setDisable(true);
         }
-        return true;
     }
 
     public void handleTwoPlayer(Group root, Stage stage) {
-        state = new Board();
         root.getChildren().clear();
         text.setX(310);
         text.setY(30);
@@ -112,7 +121,7 @@ public class HelloFX extends Application {
                         a.show();
                     }
                     if (isOnePlayer) {
-                        mc = new MonteCarlo(1, state, 2, 2500, "");
+                        mc = new MonteCarlo(1, state, 2, 25000, "");
                         int[] c = mc.move();
                         player = changeCircle(c[0], c[1], stage);
                     }
@@ -126,6 +135,7 @@ public class HelloFX extends Application {
 
     public void start(Stage stage) {
         root.getChildren().clear();
+        state = new Board();
         Text startText = new Text("Which mode would you like to play?");
         startText.setX(260);
         startText.setY(200);
@@ -151,7 +161,6 @@ public class HelloFX extends Application {
         });
         root.getChildren().addAll(twoPlayer, onePlayer);
         
-        Scene startScene = new Scene(root, 720, 680);
         startScene.setFill(javafx.scene.paint.Color.BLUE);
         stage.setTitle("Connect 4");
         stage.setScene(startScene);
