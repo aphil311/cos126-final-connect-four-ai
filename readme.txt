@@ -60,7 +60,7 @@ outputs (e.g. graphical or auditory), feel free to describe in words what the
 output should be or reference output files (e.g. images, audio files) of the
 expected output.
 
-To use the JavaFX GUI with Connect4, one must install JavaFX on their personal machine following https://openjfx.io/openjfx-docs/#install-javafx. Afterward, the program can be executed in the command line with `javac --module-path $PATH_TO_FX --add-modules javafx.controls GameVisualizer.java` and `java --module-path $PATH_TO_FX --add-modules javafx.controls GameVisualizer`
+JavaFX has already been included in the project. To run the program, compile with the command `javac --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer.java` and then run it with `java --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer`
 
 The output should be a new window with the opening screen prompting the user for a mode of play.
 
@@ -112,9 +112,9 @@ should be or reference output files (e.g. images, audio files).
 List below *EVERY* resource your project group looked at (bullet lists and
 links suffice).
 
-
-
-
+- https://openjfx.io/openjfx-docs/
+- https://docs.oracle.com/javafx/2/get_started/hello_world.htm
+- https://docs.oracle.com/javase/8/javafx/api/index.html
 
 Remember that you should *ALSO* be citing every resource that informed your
 code at/near the line(s) of code that it informed.
@@ -124,7 +124,7 @@ If so, please list their names.  ("A Sunday lab TA" or "Office hours on
 Thursday" is ok if you don't know their name.)
 Yes or no?
 
-
+No
 
 Did you encounter any serious problems? If so, please describe.
 Yes or no?
