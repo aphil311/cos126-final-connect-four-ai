@@ -18,11 +18,11 @@ NetID 2: ap8914
 
 Project preceptor name: Alan Kaplan
 
-Project title:
+Project title: Connect 4
 
 CodePost link for proposal feedback:
 
-Link to project video:
+Link to project video: 
 
 Approximate number of hours to complete the final project
 Number of hours:
@@ -34,7 +34,6 @@ Number of hours:
 Describe your project in a few sentences.
 
 Our project is a Connect 4 with a GUI with two modes of gameplay: one-player,where the user faces off against an AI, and two-player, where two users alternate playing in real time. Users play with 
-
 
 
 Describe in detail your three features and where in your program
@@ -54,6 +53,7 @@ Implementation for checking the state of the board is throughout lines 53-299 of
 
 This feature was modified in the case that we were unable to execute a more intelligent mode of play. We were ultimately able to create the latter feature rather than the simpler, randomized computer player. Implementation for the two modes of play is introduced in GameVisualizer method start on lines 173-214. Method handleGame handles the mode of play through the boolean isOnePlayer. The computer player is executed on lines 156-163. The setup of the AI is in all of MonteCarlo.java, which plays "intelligently."
 
+
 Describe in detail how to compile and run your program. Include a few example
 run commands and the expected results of running your program. For non-textual
 outputs (e.g. graphical or auditory), feel free to describe in words what the
@@ -63,6 +63,7 @@ expected output.
 JavaFX has already been included in the project. To run the program, compile with the command `javac --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer.java` and then run it with `java --module-path javafx-sdk-17.0.1/lib --add-modules javafx.controls GameVisualizer`
 
 The output should be a new window with the opening screen prompting the user for a mode of play.
+
 
 Describe how your program accepts user input and mention the line number(s) at
 which your program accepts user input.
@@ -87,9 +88,9 @@ Our program uses a 1D array to store information for GUI components such as butt
 List the two custom functions written by your project group, including function
 signatures and line numbers; if your project group wrote more than two custom
 functions, choose the two functions that were most extensively tested.
-1.
+1. 
 
-2.
+2. 
 
 List the line numbers where you test each of your two custom functions twice.
 For each of the four tests (two for each function), explain what was being
@@ -116,19 +117,18 @@ links suffice).
 - https://docs.oracle.com/javafx/2/get_started/hello_world.htm
 - https://docs.oracle.com/javase/8/javafx/api/index.html
 
-Remember that you should *ALSO* be citing every resource that informed your
-code at/near the line(s) of code that it informed.
+Remember that you should *ALSO* be citing every resource that informed your code at/near the line(s) of code that it informed.
 
 Did you receive help from classmates, past COS 126 students, or anyone else?
 If so, please list their names.  ("A Sunday lab TA" or "Office hours on
 Thursday" is ok if you don't know their name.)
-Yes or no?
 
-No
+No.
+
 
 Did you encounter any serious problems? If so, please describe.
-Yes or no?
 
+No.
 
 
 

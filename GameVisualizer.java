@@ -12,6 +12,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.util.concurrent.TimeUnit;
 
+/*
+RESOURCES USED:
+- https://openjfx.io/openjfx-docs/
+- https://docs.oracle.com/javafx/2/get_started/hello_world.htm
+- https://docs.oracle.com/javase/8/javafx/api/index.html
+
+Oracle and JavaFX docs were used throughout programming; 
+looked at pages for Buttons, Circle, Group, Scene, Text, Alert, etc.
+ */
+
 public class GameVisualizer extends Application {
     // MonteCarlo AI that plays against user
     private MonteCarlo mc;
